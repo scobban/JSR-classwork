@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Super Sweet JS Exercises</title>
+		<link rel="stylesheet" href="css/style.css">
+		<script src="https://code.jquery.com/jquery-3.0.0.js" integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI=" crossorigin="anonymous"></script>
+		<script src="js/script.js"></script>
+	</head>
+	<body>
+		<h1>String Practice</h1>
+		<!-- Write javascript to return the 5th character of the string (put return in return5th_display ) -->
+		<div class="exercise" id="ps1">
+			<h3>1) Write javascript to return the 5th character of the string (put return in return5th_display )</h3>
+			<input id="return5th_input" type="text">
+			<div id="return5th_display"></div>
+			<input type="submit" id="return5th_submit"/>
+		</div>
+		<!-- Same as above except output second to last char of a input string -->
+		<div class="exercise" id="ps2">
+			<h3>2) Same as above except output second to last char of a input string</h3>
+			<input id="returnLast_input" type="text">
+			<div id="returnLast_display"></div>
+			<input type="submit" id="returnLast_submit"/>
+		</div>
+		<!-- Check to see if a word exists in a hard-coded paragraph, display "YES" if found and "NO" if not -->
+		<div class="exercise" id="ps3">
+			<h3>3) Check to see if a word exists in a hard-coded paragraph, display "YES" if found and "NO" if not</h3>
+			<p id="ps3text">
+				Flexitarian sustainable VHS, ramps flannel lumbersexual shabby chic venmo man bun blue bottle plaid synth viral. Austin quinoa fap iPhone banjo 3 wolf moon. Franzen williamsburg street art knausgaard synth literally, mumblecore sriracha scenester direct trade banjo bitters ugh. Forage hammock tilde taxidermy. Meh VHS occupy, asymmetrical helvetica pop-up next level poutine normcore. Flannel banh mi skateboard readymade, asymmetrical gluten-free chicharrones microdosing health goth. Pinterest normcore freegan gastropub pug.
+			</p>
+			<div id="checkWork_display"></div>
+			<input type="text" id="checkWork_input"/>
+			<input type="submit" id="checkWork_submit">
+		</div>
+		<!-- Reverse string inputted by user -->
+		<div class="exercise" id="ps4">
+			<h3>4) Reverse string inputted by user</h3>
+			<input id="reverseString_input" type="text">
+			<div id="reverseString_display"></div>
+			<input type="submit" id="reverseString_submit"/>
+		</div>
+		<h1>Variables</h1>
+		<!-- Output HELLO WORLD into a div, but you must first store "hello world" into a variable and then output the variable -->
+		<div class="exercise" id="vc1">
+			<h3>5) Output HELLO WORLD into a div, but you must first store "hello world" into a variable and then output the variable</h3>
+			<div id="helloworld_display"></div>
+			<input type="submit" id="helloworld_submit"/>
+		</div>
+		<!-- Provide an input for user to type their name and greet them with their name "Hello BLANK, welcome to the website" should go in greet1 display-->
+		<div class="exercise" id="vc2">
+			<h3>6) Provide an input for user to type their name and greet them with their name "Hello BLANK, welcome to the website" should go in greet1 display</h3>
+			<input id="greet1_input" type="text">
+			<div id="greet1_display"></div>
+			<input type="submit" id="greet1_submit"/>
+		</div>
+		<h1>Conditionals</h1>
+		<!-- Do the same as above but only greet them if their names are Alice, Bob, or YOUR NAME -->
+		<div class="exercise" id="c1">
+			<h3>7) Do the same as above but only greet them if their names are Alice, Bob, or YOUR NAME</h3>
+			<input id="greet2_input" type="text">
+			<div id="greet2_display"></div>
+			<input type="submit" id="greet2_submit"/>
+		</div>
+		<!-- Accept two integers from the user and display the larger -->
+		<div class="exercise" id="c2">
+			<h3>8) Accept two integers from the user and display the larger</h3>
+			<input id="integerMax_input1" type="text">
+			<input id="integerMax_input2" type="text">
+			<div id="integerMax_display"></div>
+			<input type="submit" id="integerMax_submit"/>
+		</div>
+		<!-- Accept three integers from the user and display the SIGN of the product of the three (aka: display + or -) -->
+		<div class="exercise" id="c3">
+			<h3>9) Accept three integers from the user and display the SIGN of the product of the three (aka: display + or -)</h3>
+			<input id="integerSign_input1" type="text">
+			<input id="integerSign_input2" type="text">
+			<input id="integerSign_input3" type="text">
+			<div id="integerSign_display"></div>
+			<input type="submit" id="integerSign_submit"/>
+		</div>
+		<!--  Write a JavaScript program to sort three numbers. Display them in order from greatest to smallest -->
+		<div class="exercise" id="c4">
+			<h3>10) Write a JavaScript program to sort three numbers. Display them in order from greatest to smallest</h3>
+			<input id="integerSort_input1" type="text">
+			<input id="integerSort_input2" type="text">
+			<input id="integerSort_input3" type="text">
+			<div id="integerSort_display"></div>
+			<input type="submit" id="integerSort_submit"/>
+		</div>
+		<!--  Write a function called play() to play rock, paper, scissors and output the winner (player 1 or player 2) -->
+		<div class="exercise" id="c5">
+			<h3>11) Write a function called play() to play rock, paper, scissors and output the winner (player 1 or player 2)</h3>
+			<input id="rps_player1" type="text">
+			<input id="rps_player2" type="text">
+			<div id="rps_winner_display"></div>
+			<input type="submit" id="rps_submit"/>
+		</div>
+		<h1>Loops</h1>
+		<!--  Calculate the factoral of a number inputted by the user -->
+		<div class="exercise" id="l1">
+			<h3>12) Calculate the factoral of a number inputted by the user</h3>
+			<input id="factoral_input" type="text">
+			<div id="factoral_display"></div>
+			<input type="submit" id="factoral_submit"/>
+		</div>
+		<!--			
+			Write a JavaScript program to construct the following pattern:
+			*
+			**
+			***
+			****
+			*****				
+		-->
+		<div class="exercise" id="l2">
+			<h3>13)Write a JavaScript program to construct the following pattern (Look at HTML comments for the pattern)</h3>
+			<div id="star_display"></div>
+			<input type="submit" id="star_submit"/>
+		</div>
+		<!--  Write a function that multiplies a base by itself a certain number of times (exponent) -->
+		<div class="exercise" id="l3">
+			<h3>14) Write a function that multiplies a base by itself a certain number of times (exponent)</h3>
+			<input id="base_input" type="text" placeholder="base">
+			<input id="exp_input" type="text" placeholder="exponent">
+			<div id="base_exp_display"></div>
+			<input type="submit" id="base_exp_submit"/>
+		</div>
+		<!--  Write a program that prints the numbers from 1 to 100. But for multiples of three print "Foo" instead of the number and for the multiples of five print "Bar". For numbers which are multiples of both three and five print "FooBar" -->
+		<div class="exercise" id="l4">
+			<h3>15) FIZZBUZZ: Write a program that prints the numbers from 1 to 100. But for multiples of three print "Foo" instead of the number and for the multiples of five print "Bar". For numbers which are multiples of both three and five print "FooBar"</h3>
+			<div id="foobar_display"></div>
+			<input type="submit" id="foobar_submit"/>
+		</div>
+
+		
+	</body>
+</html>
+
