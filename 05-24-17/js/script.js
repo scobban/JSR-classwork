@@ -66,8 +66,8 @@ $(document).ready(function(){
 	/****** QUESTION 8 ************/
 	// Accept two integers from the user and display the larger
 	document.getElementById('integerMax_submit').onclick = function(){
-			var num1 = document.getElementById('integerMax_input1').value;
-			var num2 = document.getElementById('integerMax_input2').value;
+			var num1 = Number(document.getElementById('integerMax_input1').value);
+			var num2 = Number(document.getElementById('integerMax_input2').value);
 			if (num1 > num2) {
 				var larger = num1;
 			} else if (num1 < num2) {
@@ -82,10 +82,10 @@ $(document).ready(function(){
 	/****** QUESTION 9 ************/
 	// Accept three integers from the user and display the SIGN of the product of the three (aka: display + or -)
 	document.getElementById('integerSign_submit').onclick = function(){
-			var num1 = document.getElementById('integerSign_input1').value;
-			var num2 = document.getElementById('integerSign_input2').value;
-			var num3 = document.getElementById('integerSign_input3').value;
-			var sum = Number(num1) + Number(num2) + Number(num3);
+			var num1 = Number(document.getElementById('integerSign_input1').value);
+			var num2 = Number(document.getElementById('integerSign_input2').value);
+			var num3 = Number(document.getElementById('integerSign_input3').value);
+			var sum = num1 + num2 + num3;
 			var sign;
 			if (sum > 0) {
 				var sign = "+";
@@ -120,7 +120,7 @@ $(document).ready(function(){
 			// user sortNumber function
 			// otherwise, sort() sorts on unicode point value
 			group.sort(compareNumbers).reverse();
-			
+
 			for (var i = 0; i < group.length; i++) {
 				output.innerHTML += group[i] + '<br/>';
 				console.log(group[i]);
@@ -131,11 +131,54 @@ $(document).ready(function(){
 
 	/****** QUESTION 11 ***********/
 	// Write a function called play() to play rock, paper, scissors and output the winner (player 1 or player 2). This requires ressearch on how to make a function
+	document.getElementById('rps_submit').onclick = function(){
+			var rps1 = document.getElementById('rps_player1').value;
+			var rps2 = document.getElementById('rps_player2').value;
+			rps1 = rps1.toLowerCase();
+			rps2 = rps2.toLowerCase();
+			var outcome = "It's a draw! Try again.";
+			function play (a, b) {
+				if (a == b) {
+					outcome; 
+				} else if (a == "rock") {
+					if (b == "scissors") {
+						outcome = "Player 1 wins!";
+					} else {
+						outcome = "Success for Player 2!";
+					}
+				} else if (a == "paper") {
+					if (b == "rock") {
+						outcome = "Player 1 for the win.";
+					} else {
+						outcome = "Player 2 wins, this time.";
+					}					
+				} else if (a == "scissors") {
+					if (b == "paper") {
+						outcome = "A win for Player 1!";
+					} else {
+						outcome = "Way to go, Player 2!";
+					}
+				}
+			}
+			play(rps1, rps2);
+			document.getElementById('rps_winner_display').innerHTML = outcome;
+	}
 
 
 
 	/****** QUESTION 12 ***********/
 	// Calculate the factoral of a number inputted by the user
+	document.getElementById('factoral_submit').onclick = function(){
+			var numIn = Math.round(document.getElementById('factoral_input').value);
+			if (numIn > 0) {
+				for (var minusOne = numIn - 1; minusOne > 0; minusOne-- ) {
+				  numIn *= minusOne;
+				}
+			} else {
+				numIn = "Please enter an integer greater than 0.";
+			};
+			document.getElementById('factoral_display').innerHTML = numIn;
+	}
 
 
 
@@ -146,13 +189,73 @@ $(document).ready(function(){
 	//***
 	//****
 	//*****				
+	document.getElementById('star_submit').onclick = function(){
+			var stars = ["*","**","***","****","*****"];
+			for (var i = 0; i < stars.length; i++) {
+				document.getElementById('star_display').innerHTML += stars[i] + '<br />';
+			}
+	};
 
 
 	/****** QUESTION 14 ***********/
 	//Write a function that multiplies a base by itself a certain number of times (exponent)
+	document.getElementById('base_exp_submit').onclick = function(){
+			var base = Number(document.getElementById('base_input').value);
+			var exp = Number(document.getElementById('exp_input').value);
+			var result = Math.pow(base, exp);
+			document.getElementById('base_exp_display').innerHTML = result;
+	};
+
 
 	/****** QUESTION 15 ***********/
-	//Write a program that prints the numbers from 1 to 100. But for multiples of three print "Foo" instead of the number and for the multiples of five print "Bar". For numbers which are multiples of both three and five print "FooBar"
-	
-	
-});	
+	// Write a program that prints the numbers from 1 to 100. 
+	// For multiples of three print "Foo" instead of the number and 
+	// For the multiples of five print "Bar". 
+	// For numbers which are multiples of both three and five print "FooBar"
+
+	var fooButton = document.getElementById('foobar_submit');
+	var fooDisplay = document.getElementById('foobar_display');
+
+	// First pass
+	//
+	// fooButton.onclick = function() {
+	// 	    var list = [];
+	// 	    for (var i = 1; i <= 100; i++) {
+	// 	        // is i cleanly divisible by 3 OR 5?
+	// 	        if (i % 3 === 0 || i % 5 === 0) {
+	// 	            // is i cleanly divisible by 3 AND 5?
+	// 	            if (i % 3 === 0 && i % 5 === 0) {
+	// 	                list.push("FooBar");
+	//                 // is i cleanly divisible by 3?
+	// 	            } else if (i % 3 === 0) {
+	// 	                list.push("Foo");
+	// 	            } else {
+	// 					list.push("Bar");
+	// 	            }
+	// 	        } else {
+	// 	            list.push(i);
+	// 	        }
+	// 	        fooDisplay.innerHTML += list[i - 1] + '<br />';
+	// 	    }
+	// }
+
+	// Second pass - coworker mentioned creating FooBar
+	// from adding each separately through the cycle
+	//
+	fooButton.onclick = function() {
+		    for (var i = 1; i <= 100; i++) {
+		        var out = "";
+		        if (i % 3 === 0) {
+		            out += "Foo";
+		        }
+		        if (i % 5 === 0) {
+		            out += "Bar";
+		        }
+		        if (out == "") {
+		            out = i;
+		        }
+		        fooDisplay.innerHTML += out + '<br />';
+		    }
+	}
+
+});
