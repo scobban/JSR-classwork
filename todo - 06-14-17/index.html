@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<title>Todo</title>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	
+	<script src="scripts.js"></script>
+
+	<script id="todo-template" type="text/x-handlebars-template">
+		<li>{{toDo}}</li>
+	</script>
+
+</head>
+
+<body>
+
+	<form id="new_task">
+		<input type="text" id="new_task_input">
+		<button id="new_task_submit">Submit</button>
+	</form>
+	<ul id="task_list">
+		
+	</ul>
+
+</body>
+
+</html>
