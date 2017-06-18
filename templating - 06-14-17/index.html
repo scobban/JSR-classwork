@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<title>Templating Work</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+
+	<script id="hello-world-template" type="text/x-handlebars-template">
+	    <h1>{{helloTitle}}</h1>
+	    <p>{{helloContent}}</p>
+	</script>
+
+	<script id="hello-world2-template" type="text/x-handlebars-template">
+	    <p>{{lastName}}, {{firstName}}</p>
+	</script>
+
+	<script>
+	    $(document).ready(function(){
+	        var source = $('#hello-world-template').html();
+	        var source2 = $('#hello-world2-template').html();
+	        
+	        var template = Handlebars.compile(source);
+	        var template2 = Handlebars.compile(source2);
+
+	        var helloStatement = { 
+	        	helloTitle: "Hello world", 
+	        	helloContent: "GA JS class is just awesome"
+	        };
+
+	        var fullName = {
+	        	firstName: "Daniel",
+	        	lastName: "Lafferty"
+	        }
+
+	        var compiledTemplate = template(helloStatement);
+	        var compiled2 = template2(fullName);
+
+	        $('body').append(compiledTemplate);
+	        $('body').append(compiled2);
+	    })
+	</script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>
