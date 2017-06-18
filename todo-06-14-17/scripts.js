@@ -18,7 +18,6 @@ MyApp.addToList = function(list, item) {
 	};
 	// createdItem = <li>{text}</li>
 	var createdItem = MyApp.compileItem(itemObject);
-	console.log("compiled " + createdItem);
 	list.append(createdItem);
 	item.val("");
 }
