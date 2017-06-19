@@ -4,7 +4,7 @@ var MyApp = {};
 
 MyApp.compileItem = function(item) {
 	// sets "source" as the HTML of the template
-	var source = $("#todo-template").html();
+	var source = $('#todo-template').html();
 	// compiles the template "source" from above
 	var template = Handlebars.compile(source);
 	// applies the content to the template
@@ -13,18 +13,14 @@ MyApp.compileItem = function(item) {
 
 MyApp.addToList = function(list, item) {
 	// itemObject = the value of the input sent to the template
+	var completeLink = '<a href="#" class="complete-link">link</a>'
 	var itemObject = { 
-		toDo: item.val()
+		toDo: item.val() + ' ' + completeLink
 	};
 	// createdItem = <li>{text}</li>
 	var createdItem = MyApp.compileItem(itemObject);
 	list.append(createdItem);
-	item.val("");
-}
-
-MyApp.removeFromList = function() {
-	// add button that gets added when the ToDo is added
-	// have it remove the item when it's clicked
+	item.val('');
 }
 
 $(document).ready(function() {

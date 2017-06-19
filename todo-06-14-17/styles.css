@@ -16,3 +16,8 @@ input {
 button {
 	border: 1px solid #aaa;
 }
+
+.completed-item {
+	color: lightgray;
+	text-decoration: line-through;
+}
