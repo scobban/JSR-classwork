@@ -54,15 +54,14 @@ MyApp.addToList = function(list, name, email, text) {
   list.append(compiledItem);
 }
 
-MyApp.populateList = function(list){
-  for(var i = 0; i < MyApp.existingComments.length; i++) {
-    var newItem = MyApp.compileItem(MyApp.existingComments[i]);
+MyApp.populateList = function(list, x){
+  for(var i = 0; i < MyApp.existingComments[x].length; i++) {
+    var newItem = MyApp.compileItem(MyApp.existingComments[x][i]);
     list.append(newItem);
   }
 }
 
 MyApp.removeFromList = function($list, $item) {
-  console.log($item);
   var itemIndex = $item.index();
   if (itemIndex > -1) {
     MyApp.existingComments.splice(itemIndex, 1);
@@ -70,29 +69,44 @@ MyApp.removeFromList = function($list, $item) {
   $item.remove();
 }
 
+MyApp.editItem = function(form, name, email, text) {
+  var newName = form.find(".comment_name");
+  var newEmail = form.find(".comment_email");
+  var newText = form.find(".comment_text");
+  newName.val(name);
+  newEmail.val(email);
+  newText.val(text);
+}
+
+$(this).closest(".comment_form").find(".comment_name").val("Name");
+
 $(document).ready(function(){
 
 	var $btnSubmit = $(".btn");
 	var $commentList = $(".comments");
+	var $blogWrap = $("div[id^='blogpost']");
 
-	MyApp.populateList($commentList);
-
-	var numIDs = $("div[id^='blogpost']").length;
-
-	console.log(numIDs + " divs with that ID");
+	// populate existing comments from the "MyApp.existingComments" array
+	for (var i = 0; i <= $blogWrap.length - 1 ; i++) {
+		var $whichBlog = i + 1;
+		var $whichList = $("#blogpost" + $whichBlog).find($commentList);
+		MyApp.populateList($whichList, i);
+	}
 
 	$btnSubmit.on("click", function(event){
 		event.preventDefault();
-		// if ( $nameVal.text() === "" || $emailVal.text() === "" || $textVal.text() === "" ) {
-		// 	return;
-		// }
 		var $nameVal = $(this).siblings(".comment_name");
 		var $emailVal = $(this).siblings(".comment_email");
 		var $textVal = $(this).siblings(".comment_text");
-		console.log("nameVal " + $nameVal);
-		var $currentList = $(this).closest("div[id^='blogpost']").find($commentList);
-		$currentList.toggleClass("selected");
+		if ( $nameVal.val() === "" || $emailVal.val() === "" || $textVal.val() === "" ) {
+			alert("You need to enter a name, email address, and comment.");
+			return;
+		}
+		var $currentList = $(this).closest($blogWrap).find($commentList);
 		MyApp.addToList($currentList, $nameVal, $emailVal, $textVal);
+		$nameVal.val("");
+		$emailVal.val("");
+		$textVal.val("");
 	});
 
 	$commentList.on('click', '.delete', function(e) {
@@ -103,12 +117,15 @@ $(document).ready(function(){
 
 	$commentList.on('click', '.edit', function(e) {
 		e.preventDefault();
-		console.log("edit");
-		var myBtn = $(this).closest("li");
-		var sibH3 = myBtn.find("h3 strong").text();
-		var sibEmail = myBtn.find("h3 span").text();
-		var sibText = myBtn.find("p").text();
-		console.log(sibH3, sibEmail, sibText);
+		var $currentList = $(this).closest($blogWrap).find($commentList)
+		var currentForm = $(this).closest(".comments").siblings(".comment_form");
+		var editScope = $(this).closest("li");
+		var editName = editScope.find("h3 strong").text();
+		var editEmail = editScope.find("h3 span").text();
+		var editText = editScope.find("p").text();
+		var $commentItem = $(this).closest("li");
+		MyApp.editItem(currentForm, editName, editEmail, editText);
+		MyApp.removeFromList($currentList, $commentItem);
 	});
 
 });
