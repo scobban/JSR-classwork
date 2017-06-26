@@ -68,6 +68,7 @@ $(function() {
         event.preventDefault();
 
         $(".movie-output").html("");
+        $(".response-message").remove();
 
         var inputVal = $('#movie_search').val();
         if (inputVal == "") {
@@ -83,17 +84,27 @@ $(function() {
 
         request.done(function(data) {
             var movies = data.Search;
+            var errorMessage = $("<h3 class='response-message'>No movies were found for this search. Give it another shot.</h3>");
+            if (movies == undefined || movies == 'undefined') {
+                $(errorMessage).appendTo(".head");
+                return;
+            }
             for (var i = 0; i < movies.length; i++) {
                 var moviePoster = movies[i].Poster;
                 var movieTitle = movies[i].Title;
                 var movieType = movies[i].Type;
                 var movieYear = movies[i].Year;
                 var movieID = movies[i].imdbID;
+                if (moviePoster == "N/A") {
+                    var moviePoster = "https://movie-upload.appspot.com/images/datastore?id=NoImageAvailable"
+                }
                 var posterHtml = "<img class='poster' data-type='" + movieType + "' data-title='" + movieTitle + " 'data-year='" + movieYear + "' data-imdbid='" + movieID + "' src='" + moviePoster + "'>";
                 var movieUrl = "http://www.imdb.com/title/" + movieID;
                 console.log(movieUrl);
                 MovieApp.addToTemplate(posterHtml, movieTitle, movieYear, movieType, movieUrl);
             };
+        }).fail(function(data) {
+            alert("Try again please.");
         });
 
     });
@@ -118,12 +129,12 @@ $(function() {
         });
 
 		$(".panel-wrap").html("").hide();
-        $(".panel-wrap").prependTo(parentDiv).show();
+        $(".panel-wrap").prependTo(parentDiv).fadeIn("fast");
 
     });
 
     $("body").on("click", ".close", function() {
-        $(".panel-wrap").html("").hide();
+        $(".panel-wrap").html("").hide().appendTo("body");
     });
 
 });
