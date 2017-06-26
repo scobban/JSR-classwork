@@ -1,0 +1,194 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #eee;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+}
+
+figure {
+	margin: 0;
+}
+
+body,
+input {
+	font-size: 14px;
+}
+
+input::-webkit-input-placeholder {
+    opacity: 0.5;
+}
+
+input:-ms-input-placeholder {
+    opacity: 0.5;
+}
+
+input::placeholder {
+    opacity: 0.5;
+}
+
+input:placeholder {
+    opacity: 0.5;
+}
+
+.container {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.movie-form {
+	display: flex;
+	margin: 0 auto;
+	width: 80%;
+}
+
+.movie-input {
+	flex: 6;
+}
+
+.movie-btn {
+	flex: 1;
+}
+
+.head {
+	text-align: center;
+}
+
+.movie-input,
+.movie-btn {
+	padding: 10px;
+	border: 1px solid #bbb;
+}
+
+.movie-btn {
+	background-color: #d2f3dd;
+}
+
+.movie-output {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	margin-top: 20px;
+}
+
+.badge {
+	color: gray;
+	opacity: 0.7;
+}
+
+.movie-item {
+    flex: 0 0 18%;
+    padding: 1%;
+    margin: 1%;
+	box-shadow: 2px 2px 4px lightgray;
+	background-color: white;
+	position: relative;
+}
+
+.type-movie {
+	background-color: #edf8ff;
+}
+
+.type-series {
+	background-color: #edffee;
+}
+
+.type-episode {
+	background-color: #fcedff;
+}
+
+.movie-item .info {
+	margin: 5px 0;
+	display: flex;
+	justify-content: space-between;
+	font-size: 12px;
+}
+
+.movie-item figure {
+	text-align: center;
+}
+
+.movie-item img {
+	max-width: 100%;
+	cursor: pointer;
+}
+
+.movie-item h3 {
+	margin: 3px 0;
+	position: relative;
+	z-index: 3;
+}
+
+.movie-item h3 a {
+	color: #222;
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+}
+
+.movie-item h3 a:hover {
+	text-decoration: none;
+	border-bottom: 2px solid #ccc;
+}
+
+.panel-wrap {
+    display: none;
+    background-color: rgba(0,0,0,0.8);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0;
+    padding: 4% 6%;
+    color: white;
+}
+
+.panel-wrap ~ h3 a {
+	color: white;
+}
+
+.close {
+	position: absolute;
+    padding: 2px;
+    top: -1px;
+    right: 2px;
+    cursor: pointer;
+    opacity: 0.5;
+    font-size: 10px;
+}
+}
+
+.plot-spot {
+	height: 200px;
+	margin-top: 0;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.bar-wrap {
+	background-color: #222;
+	border: 1px solid #444;
+	width: 90%;
+	position: absolute;
+	bottom: 10px;
+	z-index: 2;
+}
+
+.bar-segment {
+	background-color: #207cca;
+	color: black;
+	-webkit-transition: width 4s;
+	transition: width 4s;
+	width: 0;
+	height: 20px;
+}
+
+.bar-text {
+	color: white;
+	text-transform: uppercase;
+	position: absolute;
+	left: 3px;
+	top: 2px;
+	font-size: 12px;
+}
