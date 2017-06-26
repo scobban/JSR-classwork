@@ -28,7 +28,7 @@ MovieApp.compileItem = function(template, item) {
 }
 
 MovieApp.addToTemplate = function(poster, title, year, type, link) {
-	var movieTemplate = $("#movie-template");
+    var movieTemplate = $("#movie-template");
     var movieList = $(".movie-output");
     var movieObject = {
         poster: poster,
@@ -45,7 +45,7 @@ MovieApp.infoPanel = function(barCalc, rating, mpaa, runtime, plot) {
     var panelTemplate = $("#modal-template");
     var panelWrap = $(".panel-wrap");
     var panelObject = {
-    	barWidth: barCalc,
+        barWidth: barCalc,
         rating: rating,
         mpaa: mpaa,
         runtime: runtime,
@@ -60,14 +60,17 @@ $(function() {
 
     $("#movie_search").focus();
 
-    var omdbUrl = "http://www.omdbapi.com";
+    var omdbUrl = "https://www.omdbapi.com";
     var omdbKey = "ada5c403";
 
-    $(document).on("submit", "#movie_form", function(event) {
+    $("body").submit(function() {
+        return false;
+    });
 
-        event.preventDefault();
+    $("body").on("keyup", "#movie_search", function(event) {
 
         $(".movie-output").html("");
+
         $(".response-message").remove();
 
         var inputVal = $('#movie_search').val();
@@ -100,16 +103,15 @@ $(function() {
                 }
                 var posterHtml = "<img class='poster' data-type='" + movieType + "' data-title='" + movieTitle + " 'data-year='" + movieYear + "' data-imdbid='" + movieID + "' src='" + moviePoster + "'>";
                 var movieUrl = "http://www.imdb.com/title/" + movieID;
-                console.log(movieUrl);
                 MovieApp.addToTemplate(posterHtml, movieTitle, movieYear, movieType, movieUrl);
             };
         }).fail(function(data) {
-            alert("Try again please.");
+            alert("There was an error. Please try again..");
         });
 
     });
 
-    $("body").on("click", ".poster", function() {
+    $("body").on("click touchstart", ".poster", function() {
 
         var currentID = $(this).data("imdbid");
         var parentDiv = $(this).parents(".movie-item");
@@ -124,11 +126,11 @@ $(function() {
         });
 
         request.done(function(data) {
-        	var calcWidth = data.imdbRating * 10 + '%';
+            var calcWidth = data.imdbRating * 10 + '%';
             MovieApp.infoPanel(calcWidth, data.imdbRating, data.Rated, data.Runtime, data.Plot);
         });
 
-		$(".panel-wrap").html("").hide();
+        $(".panel-wrap").html("").hide();
         $(".panel-wrap").prependTo(parentDiv).fadeIn("fast");
 
     });
