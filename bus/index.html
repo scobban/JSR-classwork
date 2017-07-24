@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Bus-ted</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Bitter:400,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
+
+    <script id="dropdown-template" type="text/x-handlebars-template">
+        <option value="{{title}}" data-tag="{{tag}}">{{title}}</option>
+    </script>
+
+    <script id="dropdown-template2" type="text/x-handlebars-template">
+        <option value="{{title}}" data-tag="{{tag}}" data-name="{{name}}" data-forui="{{ui}}">{{name}} to {{title}}</option>
+    </script>
+
+    <script id="dropdown-template3" type="text/x-handlebars-template">
+        <option value="{{title}}" data-tag="{{tag}}" data-name="{{name}}" data-forui="{{ui}}">{{name}} to {{title}}</option>
+    </script>
+
+</head>
+<body>
+
+    <p>
+        <label for="direction">Route</label><br>
+        <select id="direction">
+            <option value="inbound">inbound</option>
+            <option value="outbound">outbound</option>
+            <option>both</option>
+        </select>
+    </p>
+
+    <p>
+        <label for="route">Route</label><br>
+    	<select id="route"></select>
+    </p>
+    <p>
+        <label for="destination">Direction</label><br>
+        <select id="destination"></select>
+    </p>
+    <p>
+        <label for="stops">Stops</label><br>
+        <select id="stops"></select>
+    </p>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="scripts/jquery.xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+	<script src="scripts/main.js"></script>
+	
+</body>
+</html>

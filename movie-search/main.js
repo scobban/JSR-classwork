@@ -84,7 +84,6 @@ $(function() {
     $("body").on("keyup", "#movie_search", function(event) {
 
         $(".movie-output").html("");
-
         $(".response-message").remove();
 
         inputVal = $('#movie_search').val();
@@ -103,7 +102,8 @@ $(function() {
         delay(function() {
 
             request.done(function(data) {
-                var movies = data.Search;
+                var movies = data;
+                console.log("MOVIES: ", movies);
                 if (movies == undefined || movies == 'undefined') {
                     $(resultsError).appendTo(".head");
                     return;
@@ -122,7 +122,8 @@ $(function() {
                     MovieApp.addToTemplate(movieType, movieTitle, movieYear, moviePoster, movieID, movieUrl);
                 };
     
-                $("#more-results").show();
+                $("#more-results").show().addClass("full-btn").removeClass("no-more-message").text("more results");
+
 
             }).fail(function(data) {
                 $("body").append("<div class='alert'>There was an error. Please try again.</div>");
