@@ -69,7 +69,7 @@ BusApp.createOption = function(tagAtt, titleAtt) {
 
 BusApp.createOption2 = function(tagAtt, titleAtt, nameAtt, forUIAtt) {
     var template = $("#dropdown-template2");
-    var output = $("#destination");
+    var output = $("#direction");
     var optionObject = {
         tag: tagAtt,
         title: titleAtt,
@@ -92,51 +92,10 @@ BusApp.createOption3 = function(tagAtt, titleAtt) {
 }
 
 var routeDropdown = $("#route");
-var destinationDropdown = $("#destination");
-var stopsDropdown = $("#stops");
 var directionDropdown = $("#direction");
+var stopsDropdown = $("#stops");
 
 var urlBase = "http://webservices.nextbus.com/service/publicXMLFeed";
-
-// var ajaxData = function(command, route, stop) {
-
-//     if (route == "") {
-//         routeVal = "";
-//         stopVal = "";
-//     } else {
-//         routeVal = "&r=" + route;
-//         if (stop !== "") {
-//             stopVal = "&s=" + stop + "&terse";
-//         }
-//     }
-
-//     var request = $.ajax({
-//         url: urlBase + "?command=" + command + "&a=mbta" + routeVal + stopVal,
-//         dataType: "xml"
-//     });
-
-//     request.done(function(xmlData){
-//         var jsonData = $.xmlToJSON(xmlData);
-
-//         var route = jsonData.body.route;
-
-//         for(var i = 0; i < route.length; i++) {
-//             var tag = route[i]["@tag"];
-//             var title = route[i]["@title"];
-//             BusApp.createOption(tag, title);
-//         }
-
-//         console.dir(jsonData);
-//         // console.log(JSON.stringify(jsonData));
-
-//     });
-
-//     request.fail(function(xmlData){
-//         alert();
-//     });
-// }
-
-// GET LIST OF ROUTES
 
 function GetRoute() {
     var request = $.ajax({
@@ -144,10 +103,10 @@ function GetRoute() {
     	dataType: "xml"
     });
 
-    request.done(function(xmlData){
-        var jsonData = $.xmlToJSON(xmlData);
+    request.done(function(data){
+        var routeData = $.xmlToJSON(data);
 
-        var route = jsonData.body.route;
+        var route = routeData.body.route;
         console.log("GetRoute: ", route);
 
         for(var i = 0; i < route.length; i++) {
@@ -158,107 +117,125 @@ function GetRoute() {
 
     });
 
-    request.fail(function(xmlData){
+    request.fail(function(data){
     	alert();
     });
 
 }
 
-function GetDestination(routeNumber) {
+var stopData;
 
-    clearField("#destination");
-
-    var request = $.ajax({
-        url: urlBase + "?command=routeConfig&a=mbta&r=" + routeNumber,
-        dataType: "xml"
-    });
-
-    request.done(function(xmlData){
-        var jsonData = $.xmlToJSON(xmlData);
-
-        var destination = jsonData.body.route.direction;
-        console.log("GetDestination: ", destination);
-
-        for(var i = 0; i < destination.length; i++) {
-            var tag = destination[i]["@tag"];
-            var title = destination[i]["@title"];
-            var name = destination[i]["@name"];
-            var forUI = destination[i]["@useForUI"];
-            BusApp.createOption2(tag, title, name, forUI);
-        }
-
-    });
-
-    request.fail(function(xmlData){
-        alert();
-    });
-}
-
-function GetStops(routeNumber) {
-
-    clearField("#stops");
+function GetDirection(routeNumber) {
 
     var request = $.ajax({
         url: urlBase + "?command=routeConfig&a=mbta&r=" + routeNumber,
         dataType: "xml"
     });
 
-    request.done(function(xmlData){
-        var jsonData = $.xmlToJSON(xmlData);
+    request.done(function(data){
+        stopData = $.xmlToJSON(data);
 
-        var stop = jsonData.body.route.stop;
-        console.log("GetStops: ", stop);
+        var direction = stopData.body.route.direction;
 
-        for(var i = 0; i < stop.length; i++) {
-            var tag = stop[i]["@tag"];
-            var title = stop[i]["@title"];
-            BusApp.createOption3(tag, title);
+        var dropdown = $("#direction");
+
+        dropdown.children().hide();
+
+        for(var i = 0; i < direction.length; i++) {
+            var tag = direction[i]["@tag"];
+            var title = direction[i]["@title"];
+            var name = direction[i]["@name"];
+            var option = "<option value='" + tag + "' data-name='" + name + "' data-title='" + title + "'>" + name + " to " + title + "</option>";
+            if (name == "Inbound") {
+                dropdown.prepend(option);
+            } else {
+                dropdown.append(option);
+            }
         }
 
-    });
-
-    request.fail(function(xmlData){
-        alert();
-    });
-
-}
-
-function GetTimes(routeNumber, stopNumber) {
-
-    clearField("#stops");
-
-    var request = $.ajax({
-        url: urlBase + "?command=predictions&a=mbta&r=" + routeNumber + "&s=" + stopNumber + "&terse",
-        dataType: "xml"
-    });
-
-    request.done(function(xmlData){
-        var jsonData = $.xmlToJSON(xmlData);
-
-        var stop = jsonData.body.route.stop;
-
-        for(var i = 0; i < stop.length; i++) {
-            var tag = stop[i]["@tag"];
-            var title = stop[i]["@title"];
-            BusApp.createOption3(tag, title);
+        if (direction != null) {
+            var firstOption = "<option disabled selected>Select Route</option> ";
+            dropdown.prepend(firstOption);
         }
 
+        dropdown.children().fadeIn();
+
     });
 
-    request.fail(function(xmlData){
+    request.fail(function(data){
         alert();
     });
-
 }
+
+// function GetStops(routeNumber) {
+
+//     clearField("#stops");
+
+//     // var request = $.ajax({
+//     //     url: urlBase + "?command=routeConfig&a=mbta&r=" + routeNumber,
+//     //     dataType: "xml"
+//     // });
+
+//     // request.done(function(xmlData){
+//     //     var jsonData = $.xmlToJSON(xmlData);
+
+//     //     var stop = jsonData.body.route.stop;
+//     //     console.log("GetStops: ", stop);
+
+//     //     for(var i = 0; i < stop.length; i++) {
+//     //         var tag = stop[i]["@tag"];
+//     //         var title = stop[i]["@title"];
+//     //         BusApp.createOption3(tag, title);
+//     //     }
+
+//     // });
+
+//     // request.fail(function(xmlData){
+//     //     alert();
+//     // });
+
+// }
 
 $(document).ready(function() {
 
     GetRoute();
+	
+    $(routeDropdown).on("change", function(){
 
-	$(routeDropdown).on("change", function(){
+        clearField("#direction");
+        clearField("#stops");
+
         var routeTag = $(this).find("option:selected").data("tag");
-        GetDestination(routeTag);
-        GetStops(routeTag);
+
+        GetDirection(routeTag);
+    });
+
+    $(directionDropdown).on("change", function(){
+        
+        clearField("#stops");
+
+        var dropdown = $("#stops");
+
+        console.log(stopData);
+        var tag = $(this).val();
+        var routeData = stopData.body.route;
+        for (var k = 0; k < routeData.direction.length; k++) {
+            if (routeData.direction[k]["@tag"] == tag) {
+                var direction = routeData.direction[k];
+                break;
+            }
+        }
+        for (var m = 0; m < direction.stop.length; m++) {
+            for (var p = 0; p < routeData.stop.length; p++) {
+                if (routeData.stop[p]["@tag"] == direction.stop[m]["@tag"]) {
+                    var stopTag = routeData.stop[p]["@tag"];
+                    var stopTitle = routeData.stop[p]["@title"];
+                    var option = "<option value='" + stopTag + "' data-title='" + stopTitle + "'>" + stopTitle + "</option>";
+                    dropdown.append(option);
+                }
+            }
+        }
+
     });
 
 });
